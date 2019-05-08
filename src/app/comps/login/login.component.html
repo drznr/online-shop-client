@@ -1,0 +1,12 @@
+<div class="login">
+  <button class="btn btn-primary action-btn anim-btn" [routerLink]="'shop'" *ngIf="!isAdminConnected" [disabled]="disableActions" >{{ buyAction }}</button>
+  <button class="btn btn-primary action-btn anim-btn" [routerLink]="'admin'" *ngIf="isAdminConnected" [disabled]="disableActions" >Admin Zone</button>
+  <p><b>Allready Registered?</b></p>
+   <form [formGroup]="loginForm">
+     <input placeholder="Username" formControlName="username" class="login-inputs" />
+     <input placeholder="Password" type="password" formControlName="password" class="login-inputs" />
+     <input type="submit" [disabled]="!this.loginForm.valid" (click)="sendData()" class="btn btn-info log-btn anim-btn" value="Login" />
+   </form>
+   <a class="reg-link" [routerLink]="'register'"><b>Register</b></a>
+   <label class="login-denial" *ngIf="showWarning"><b>Wrong username or password!</b></label>
+</div>

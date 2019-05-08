@@ -1,0 +1,31 @@
+.notiftications {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(to top, #7393a7, #728b9d, #718293, #6f7b89, #6c737e);
+}
+.notiftications-header {
+    height: 40%;
+    width: 100%;
+    background-image: linear-gradient(to right top, #e8ecf1d2, #cbd5dfd3, #aebeccd3, #91a8bad7, #7393a7d2), url('http://localhost:3000/uploads/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 60%);
+}
+.notiftications-body {
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+.notiftications-body .num {
+    color: cyan;
+}
+.notiftications-box {
+    margin-left: 1rem;
+    margin-top: 15vh;
+    font-size: 1.25rem;
+    color: #faed27;
+    letter-spacing: 1px;
+    padding: 1rem;
+    padding-left: 2.5rem;
+    word-wrap: break-word;
+}

@@ -1,0 +1,79 @@
+<div class="container-fluid order-placeholder" *ngIf="!showContent">
+  <img src="http://localhost:3000/uploads/loader.gif" alt="loader animation" id="order-loader" />
+</div>
+
+<div class="container-fluid" *ngIf="showContent">
+  <div class="row">
+    <div class="order-modal" id="approve-modal">
+      <b>Your order has been placed successfully!</b>
+      <p>To print your receipt <span (click)="printReceipt()">click here.</span></p>
+      <button [routerLink]="''" class="btn btn-primary anim-btn">OK</button>
+    </div>
+    <div class="order-modal" id="discline-modal">
+       <b>Oops, something has gone wrong.</b>
+       <p>Please try again later.</p>
+       <button (click)="closeModal()" class="btn btn-info anim-btn">Close</button>
+    </div>
+    <div class="col-sm-6 order-section">
+      <div class="order-block">
+        <div class="order-review-header">
+          <b>My Cart</b><a [routerLink]="'/shop'" class="order-link">Back to shop</a>
+        </div>
+        <div *ngIf="cartEmpty" class="empty-cart-notice">
+          <p>Unfortunately, Your'e Cart Is Empty...</p>
+          <span><a [routerLink]="'/shop'">Continue shopping</a> to fill it up.</span>
+          <img src="http://localhost:3000/uploads/empty.png" alt="empty cart" />
+        </div>
+        <div *ngIf="!cartEmpty" class="order-review">
+          <div class="review-search">
+            <input placeholder="Search recipe" [(ngModel)]="recipeSearch" (keyup)="searchRecipe()" />
+          </div>
+          <ul class="order-items-list">
+            <li *ngFor="let i of usersCartItems">
+              <img src="{{ i.image }}" class="order-items-thumb" alt="product icon" /><b
+                class="order-item-names">{{ i.name }}</b>
+              {{ i.quantity }} * {{ i.finalPrice/i.quantity }}$ = <span
+                class="order-items-finalprice">{{ i.finalPrice }}$</span>.
+            </li>
+          </ul>
+          <div class="order-review-footer">
+            <b>Total: <span class="teal">{{ totalAmount }}$</span></b>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 order-section">
+      <div class="order-block">
+        <div *ngIf="coverOn" class="order-cover"></div>
+        <div class="order-review-header payment">
+          <b>Order Summery</b>
+        </div>
+        <div class="order-payment">
+          <div class="head">Shipping Details:</div>
+          <form [formGroup]="orderForm">
+            City:
+            <select title="Double click to auto fill your details" (dblclick)="fillUserDetails('city')"
+              class="order-inputs" formControlName="city">
+              <option></option>
+              <option *ngFor="let c of availableCities">{{ c }}</option>
+            </select>
+            Street:
+            <input title="Double click to auto fill your details" (dblclick)="fillUserDetails('street')"
+              class="order-inputs" formControlName="street" />
+            Supply Date:
+            <input type="date" class="order-inputs" (focus)="hideNotice()" (change)="validateDate()"
+              formControlName="supplyDate" />
+            <label *ngIf="dateTakenWarning" class="date-notice"><span>Sorry, no deliveries available for this
+                day,</span> please pick another date.</label>
+            <div class="head payment">Payments:</div>
+            Credit Card:
+            <input class="order-inputs" pattern="[0-9].{15}" formControlName="creditCard" />
+            <button [disabled]="!orderForm.valid" (click)="sendOrder()"
+              class="btn btn-primary btn-lg anim-btn order-btn">Order!</button>
+          </form>
+        </div>
+        <div class="order-review-footer second"></div>
+      </div>
+    </div>
+  </div>
+</div>

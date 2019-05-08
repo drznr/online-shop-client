@@ -1,0 +1,88 @@
+<div class="container-fluid shop-placeholder" *ngIf="!showContent">
+  <img src="http://localhost:3000/uploads/loader.gif" alt="loader animation" id="shop-loader" />
+</div>
+
+<div class="container-fluid" *ngIf="showContent">
+  <div class="row" class="shop-head">
+    <label class="shop-head-row">
+      <input placeholder="Product's name" [(ngModel)]="prodSearch" (keyup)="searchProduct()" id="shop-search" />
+      <button (click)="getAllProds()" class="btn btn-primary anim-btn">All products</button>
+      <label class="go-back-link">
+        <a [routerLink]="''"><img src="http://localhost:3000/uploads/home.png" alt="home icon homepage link" /></a>
+      </label>
+    </label>
+    <label>
+      <span *ngFor="let c of allCategories" (click)="getProdsByCategory(c._id)"
+        class="catg-link {{ c.status }}">{{ c.title }}</span>
+    </label>
+  </div>
+  <div class="shop row">
+    <div class="col-sm-{{ sidebarWidth }} shop-section">
+      <div id="shop-sidebar">
+        <div class="shop-sidebar-head">
+          My cart
+        </div>
+        <span (click)="handleSidebar()" class="shop-sidebar-toggle">
+          <img src="http://localhost:3000/uploads/cart.toggle.png" alt="cart toggle cart icon" />
+        </span>
+        <div class="shop-sidebar-body">
+           <ul class="cart-items-list">
+             <li *ngIf="showClearCart" class="shop-clear-cart"><b (click)="clearCart()">Clear All!</b></li>
+             <li *ngFor="let i of userCartItems">
+               <p>
+                 <img src="{{ i.image }}" class="cart-items-thumb" alt="product icon" /><b>{{ i.name }}</b> {{ i.quantity }} * {{ i.finalPrice/i.quantity }}$ = <span class="cart-li-finalprice">{{ i.finalPrice }}$</span>.
+                 <img src="http://localhost:3000/uploads/cancel.png" (click)="removeCartItem(i._id)" class="cancel-cart-item" alt="x icon" title="Cancel" />
+              </p>
+             </li>
+           </ul>
+          <div class="shop-sidebar-footer">
+            <span class="total">
+              <b>Total: <span>{{ totalCartValue }}</span>$</b>
+            </span>
+            <span class="order">
+              <a [routerLink]="'order'" ><b>Order!</b></a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-{{ shopWidth }} shop-section">
+      <div class="container-fluid" id="shop-content">
+        <div class="row">
+          <div *ngFor="let p of allProducts" class="col-sm-4 shop-product">
+            <div class="shop-product-card">
+              <img src="{{ p.image }}" alt="product-image" />
+              <p><b>{{ p.title }}</b></p>
+              <p><b><span class="shop-prod-price">{{ p.price }}$</span></b></p>
+              <button (click)="openProdModal(p._id)" class="btn btn-primary anim-btn">Add to cart</button>
+              <!-- MODAL -->
+              <div id="{{ p._id }}" class="shop-prod-modal">
+                <div class="shop-modal-head">
+                  <span>Quantity:</span>
+                  <span class="close-modal-link" (click)="closeProdModal(p._id)">
+                    <img src="http://localhost:3000/uploads/x.png" alt="X icon" />
+                  </span>
+                </div>
+                <div>
+                  <b>
+                    <a (click)="handleQuantity('minus')" class="quantity-btn"><img
+                        src="http://localhost:3000/uploads/minus.png" class="modal-operators" alt="minus icon" /></a>
+                    <span class="prod-quantity">{{ quantity }}</span>
+                    <a (click)="handleQuantity('plus')" class="quantity-btn"><img
+                        src="http://localhost:3000/uploads/plus.png" class="modal-operators" alt="plus icon" /></a>
+                  </b>
+                </div>
+                <div class="shop-modal-footer">
+                  <button (click)="addToCart(p)" class="btn btn-primary anim-btn">Add to cart!</button>
+                </div>
+              </div>
+              <!-- MODAL -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

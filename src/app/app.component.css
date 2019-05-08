@@ -1,0 +1,16 @@
+/*
+  #e8ecf1 lightgrey
+  #b5cfd8 lightteal
+  #7393a7 darkteal
+  #6c737e darkgrey
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: 62.5%;
+    font-family: 'Ubuntu', sans-serif;
+}

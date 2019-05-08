@@ -1,0 +1,13 @@
+.err {
+    text-align: center;
+    font-size: 2rem;
+    font-family: 'Ubuntu', sans-serif;
+}
+.err-header {
+    font-family: 'Baloo Chettan', cursive;
+    font-size: 8rem;
+    color: red;
+}
+.err-header > .black {
+    color: black;
+}

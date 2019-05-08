@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6 register-section">
+      <div class="reg-block">
+        <div *ngIf="!nextStepBlock" class="reg-cover"></div>
+        <a [routerLink]="''" *ngIf="nextStepBlock" class="go-back-link">Go back</a>
+        <div class="reg-form">
+          <p class="reg-head"><b>Register:</b></p>
+          <form [formGroup]="registerForm">
+            <input placeholder="ID Number" formControlName="ID" pattern="[0-9]*" class="reg-inputs" />
+            <input placeholder="Email" formControlName="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+              class="reg-inputs" />
+            <input placeholder="Username" formControlName="Username" class="reg-inputs" />
+            <input placeholder="Password" type="password" formControlName="Password" class="reg-inputs" />
+            <input placeholder="Repeat password" type="password" formControlName="PassConf" class="reg-inputs" />
+            <button type="submit" (click)="progressRegister()" [disabled]="!registerForm.valid"
+              class="btn btn-info anim-btn" value="Continue">Continue</button>
+            <p class="id-taken-warning" *ngIf="idWarning"><b>There is allready an acount for this id number...</b></p>
+            <p class="id-taken-warning" *ngIf="passWarning"><b>The passwords did not match...</b></p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 register-section">
+      <div class="reg-block" id="reg-second-block">
+        <div *ngIf="nextStepBlock" class="reg-cover"></div>
+        <a (click)="goBack()" *ngIf="!nextStepBlock" id="link-btn" class="go-back-link">Go back</a>
+        <div class="reg-form">
+          <p class="reg-sec-head"><b>Few more details please.</b></p>
+          <form [formGroup]="secondForm">
+            <input placeholder="First name" class="reg-inputs" formControlName="Fname" />
+            <input placeholder="Last name" class="reg-inputs" formControlName="Lname" />
+            <select formControlName="City" class="reg-inputs">
+              <option>City</option>
+              <option *ngFor="let x of citiesArray">{{ x }}</option>
+            </select>
+            <input placeholder="Street name" class="reg-inputs" formControlName="Street" />
+            <button class="btn btn-primary anim-btn" [disabled]="!secondForm.valid"
+              (click)="sendData()">Register!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

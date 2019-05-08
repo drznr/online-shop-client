@@ -1,0 +1,61 @@
+<div class="container-fluid admin-placeholder" *ngIf="!showContent">
+  <img src="http://localhost:3000/uploads/loader.gif" alt="loader animation" id="admin-loader" />
+</div>
+
+<div class="container-fluid" *ngIf="showContent">
+  <div class="row">
+    <div class="col-sm-{{ sidebarWidth }} admin-section">
+      <div id="admin-sidebar">
+        <div class="admin-sidebar-head">
+          <span (click)="handleSidebar()">
+            <img src="http://localhost:3000/uploads/menu.png" class="admin-sidebar-toggle links-responsive"
+              alt="menu icon" />
+          </span>
+          <b>{{ sidebarTitle }}</b>
+          <img src="http://localhost:3000/uploads/add.png" alt="plus icon" title="add a new product" class="add-prod" (click)="resetSidebar()" />
+        </div>
+        <div class="admin-sidebar-body">
+           <form [formGroup]="productForm">
+             <b>Name:</b>
+             <input formControlName="title" class="admin-inputs" />
+             <b>Image link:</b>
+             <input formControlName="image" class="admin-inputs" />
+             <b>Category:</b>
+             <input formControlName="categoryID" class="admin-inputs" />
+             <b>Price:</b>
+             <input  type="number" min="0" formControlName="price" class="admin-inputs" />
+             <button (click)="saveProduct()" [disabled]="!productForm.valid" *ngIf="!editOn" class="btn btn-primary anim-btn">Save Product!</button>
+             <button (click)="editProduct()" [disabled]="!productForm.valid" *ngIf="editOn" class="btn btn-primary anim-btn">Edit Product!</button>
+           </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-{{ contentWidth }} admin-section">
+      <div id="admin-content">
+        <div class="admin-content-head">
+          <label class="admin-head-row">
+            <input placeholder="Product's name" [(ngModel)]="prodSearch" (keyup)="searchProduct()" id="admin-search" />
+            <button (click)="getAllProds()" class="btn btn-primary anim-btn">All products</button>
+            <label class="go-back-link links-responsive">
+              <a [routerLink]="''"><img src="http://localhost:3000/uploads/home.png"
+                  alt="home icon homepage link" /></a>
+            </label>
+          </label>
+          <label>
+            <span *ngFor="let c of allCategories" (click)="getProdsByCategory(c._id)"
+              class="catg-link {{ c.status }}">{{ c.title }}</span>
+          </label>
+        </div>
+        <div class="row admin-sidebar-body">
+          <div *ngFor="let p of allProducts" class="col-sm-3 admin-product">
+            <div class="admin-product-card">
+              <img src="{{ p.image }}" alt="product-image" />
+              <p><b>{{ p.title }}</b></p>
+              <p><b><span class="admin-prod-price">{{ p.price }}$</span></b><img src="http://localhost:3000/uploads/pencil.png" (click)="setProductDetails(p)" class="edit-prod links-responsive" alt="edit product" /></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

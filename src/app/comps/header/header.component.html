@@ -1,0 +1,4 @@
+<header class="page-header">
+ <img src="http://localhost:3000/uploads/logo.png" id="logo" alt="cart logo" />
+ <label class="greeting">Hello {{ entity }} <a (click)="logOut()" *ngIf="logOutLink" class="log-out" [routerLink]="''" >Log out</a></label>
+</header>
